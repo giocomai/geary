@@ -30,6 +30,7 @@ pkg_check_modules(DEPS REQUIRED
   javascriptcoregtk-4.0
   libsoup-2.4
   webkit2gtk-4.0
+  libxml-2.0
 )
 
 set(TEST_PACKAGES
@@ -58,6 +59,9 @@ set(LIB_PATHS ${DEPS_LIBRARY_DIRS})
 link_directories(${LIB_PATHS})
 add_definitions(${CFLAGS})
 
+# GResources must be compiled into the binary??
+set_property(SOURCE ${RESOURCES_C} PROPERTY GENERATED TRUE)
+
 set(VALAC_OPTIONS
     --vapidir=${CMAKE_BINARY_DIR}/src
     --vapidir=${CMAKE_SOURCE_DIR}/bindings/vapi
@@ -79,5 +83,5 @@ OPTIONS
     ${VALAC_OPTIONS}
 )
 
-add_executable(geary-test ${TEST_VALA_C})
+add_executable(geary-test ${TEST_VALA_C} ${RESOURCES_C})
 target_link_libraries(geary-test ${DEPS_LIBRARIES} geary-client geary-engine)

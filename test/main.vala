@@ -18,6 +18,7 @@ int main(string[] args) {
      * Initialise all the things.
      */
 
+    Gtk.init(ref args);
     Test.init(ref args);
 
     Geary.RFC822.init();
@@ -46,5 +47,13 @@ int main(string[] args) {
     root.add_suite(engine);
     root.add_suite(client);
 
-    return Test.run();
+    int ret = -1;
+    Idle.add(() => {
+            ret = Test.run();
+            Gtk.main_quit();
+            return false;
+        });
+
+    Gtk.main();
+    return ret;
 }
