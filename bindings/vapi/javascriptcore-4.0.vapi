@@ -1,6 +1,10 @@
 /* javascriptcore-4.0.vapi. */
 
-[CCode (cprefix = "JS", gir_namespace = "JavaScriptCore", gir_version = "4.0", lower_case_cprefix = "JS_", cheader_filename = "JavaScriptCore/JavaScript.h")]
+[CCode (cprefix = "JS",
+        gir_namespace = "JavaScriptCore",
+        gir_version = "4.0",
+        lower_case_cprefix = "JS_",
+        cheader_filename = "JavaScriptCore/JavaScript.h")]
 namespace JS {
 
 	[CCode (cname = "JSContextRef")]
@@ -26,8 +30,12 @@ namespace JS {
     [SimpleType]
 	public struct GlobalContext : Context {
 
+        [CCode (cname = "JSGlobalContextRetain")]
+        public bool retain();
+
         [CCode (cname = "JSGlobalContextRelease")]
         public bool release();
+
 	}
 
 	[CCode (cname = "JSType", has_type_id = false)]
@@ -115,7 +123,7 @@ namespace JS {
 
 	}
 
-	[CCode (cname = "JSStringRef", ref_function = "JSStringRetain", unref_function = "JSStringRelease")]
+	[CCode (cname = "JSStringRef")]
     [SimpleType]
 	public struct String {
 
